@@ -1,1 +1,1 @@
-tomcat-server ansible_host=10.26.34.202 ansible_user=svitlana ansible_password=user123
+tomcat-server ansible_host= ansible_user= ansible_password=
