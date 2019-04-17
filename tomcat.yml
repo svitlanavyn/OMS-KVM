@@ -1,0 +1,85 @@
+---
+- hosts: tomcat-server
+  roles:
+    - role: geerlingguy.java
+      become: true
+
+  tasks:  
+  - name: Install tomcat
+    yum: 
+      name: tomcat 
+      state: present
+    become: true
+  
+  - name: Add JAVA_OPTS
+    shell: echo JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC" >> /usr/share/tomcat/conf/tomcat.conf
+    become: true
+  
+  - name: Add admin packages
+    shell: yum install tomcat-webapps tomcat-admin-webapps -y
+    become: true
+
+  - name: Removing tomcat-users.xml
+    file:
+      path: /usr/share/tomcat/conf/tomcat-users.xml
+      state: absent
+    become: true
+
+  - name: Configure Tomcat users
+    template: 
+      src=/home/svitlana/Terraform/tomcat-users.xml 
+      dest=/usr/share/tomcat/conf/
+    become: true
+
+  - name: Start tomcat
+    systemd:
+      name: tomcat
+      state: started
+    become: true
+    notify: 
+      - Restart tomcat
+
+  - name: Enable tomcat
+    systemd:
+      name: tomcat
+      enabled: yes
+    become: true
+
+  - name: Add 8080 port
+    firewalld:
+      port: 8080/tcp
+      permanent: yes
+      state: enabled
+    notify: 
+      - Reload firewall
+ 
+  - name: Download latest artifact from nexus and deploy it to tomcat
+    maven_artifact:
+      group_id: com.softserveinc
+      artifact_id: edu
+      extension: war
+      mode: 0755
+      owner: tomcat
+      group: tomcat
+      repository_url: 'http://10.26.34.105:8081/repository/maven-snapshots/'
+      username: admin
+      password: "nexus123"
+      dest: /home/svitlana/
+    notify: Restart tomcat
+
+  - name: Install unzip
+    yum: name=unzip state=latest
+    become: true
+
+  - name: Unarchive war
+    unarchive: src=/home/svitlana/edu-latest.war dest=/var/lib/tomcat/webapps/ROOT copy=no mode=0775 owner=tomcat group=tomcat
+    become: true
+    notify:
+      - Restart tomcat
+
+  handlers:
+    - name: Restart tomcat
+      service: name=tomcat state=restarted
+
+    - name: Reload firewall
+      shell: firewall-cmd --reload
