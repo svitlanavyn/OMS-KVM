@@ -6,7 +6,7 @@ Required:
 2. geerlingguy.java role
 
 
-$ git clone https://github.com/svitlanavyn/OMS-libvirt.git
-$ cd OMS-libvirt
-$ terraform apply
+    git clone https://github.com/svitlanavyn/OMS-libvirt.git
+    cd OMS-libvirt
+    terraform apply
 
