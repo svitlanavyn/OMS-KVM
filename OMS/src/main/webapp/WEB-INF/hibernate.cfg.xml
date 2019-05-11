@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+                <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+	
+		<property name="hibernate.connection.url">jdbc:mysql://10.26.34.173:3306/lv316oms</property>
+		<property name="hibernate.connection.username">oms-user</property>
+		<property name="hibernate.connection.password">pass123</property>
+ 		<property name="hibernate.hbm2ddl.auto">create-drop</property>
+
+		<mapping class="com.softserveinc.edu.oms.domain.entities.Role" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.Region" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.CustomerType" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.User" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.OrderStatus" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.Order" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.Product" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.Dimension" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.OrderItem" />
+		<mapping class="com.softserveinc.edu.oms.domain.entities.CreditCardType" />
+	</session-factory>
+</hibernate-configuration>
