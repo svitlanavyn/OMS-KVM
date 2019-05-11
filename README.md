@@ -1,4 +1,4 @@
-# Deployment of OMS java app to tomcat
+# Deployment of OMS java app to tomcat using Terraform and Ansible
 
 Required:
 1. libvirt provider for KVM - https://titosoft.github.io/kvm/terraform-and-kvm/
