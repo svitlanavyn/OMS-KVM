@@ -19,6 +19,6 @@ Example of vars.tf:
 
 And finally tou can deploy the OMS application by running one the following commands at command prompt:
 
-    git clone https://github.com/svitlanavyn/OMS-libvirt.git
-    cd OMS-libvirt
-    terraform apply
+    $ git clone https://github.com/svitlanavyn/OMS-libvirt.git
+    $ cd OMS-libvirt
+    $ terraform apply
