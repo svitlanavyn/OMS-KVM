@@ -42,8 +42,8 @@ resource "libvirt_domain" "instance" {
     autoport = true
   }
  
-  provisioner "local-exec" {
-    command = "echo tomcat-server ansible_host=${self.network_interface.0.addresses.0} ansible_user=${var.ansible_user} ansible_password=${var.ansible_password} > /home/svitlana/Terraform/hosts && ansible-playbook tomcat.yml"
+   provisioner "local-exec" {
+    command = "echo tomcat-server ansible_host=${self.network_interface.0.addresses.0} ansible_user=${var.ansible_user} ansible_password=${var.ansible_password} > /home/svitlana/Terraform/hosts && ansible-playbook tomcat-deploy.yml && sleep 10 && python -m webbrowser http://${self.network_interface.0.addresses.0}:8080/"
   }
 }
 
