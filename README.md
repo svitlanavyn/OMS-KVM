@@ -3,6 +3,7 @@
 Required:
 1. libvirt provider for KVM - https://titosoft.github.io/kvm/terraform-and-kvm/
 2. geerlingguy.java role
+3. Builded war-file of OMS app (in my case it's already uploaded to Nexus Repository Manager, its url is written in tomcat-deploy.yml)
 
 Before performing next actions you need to rewrite inventory path in ansible.cfg and add vars.tf script in OMS-libvirt directory.
 
